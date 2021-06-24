@@ -2,25 +2,25 @@ package com.exchange.exchangeWS;
 
 public class JsonResult {
 
-    String SoldCurrency;
-    String BoughtCurrency;
+    String receivedCurrency;
+    String exchangeCurrency;
     double receivedValue;
     double exchangeValue;
 
-    public String getSoldCurrency() {
-        return SoldCurrency;
+    public String getReceivedCurrency() {
+        return receivedCurrency;
     }
 
-    public void setSoldCurrency(String soldCurrency) {
-        SoldCurrency = soldCurrency;
+    public void setReceivedCurrency(String receivedCurrency) {
+        this.receivedCurrency = receivedCurrency;
     }
 
-    public String getBoughtCurrency() {
-        return BoughtCurrency;
+    public String getExchangeCurrency() {
+        return exchangeCurrency;
     }
 
-    public void setBoughtCurrency(String boughtCurrency) {
-        BoughtCurrency = boughtCurrency;
+    public void setExchangeCurrency(String exchangeCurrency) {
+        this.exchangeCurrency = exchangeCurrency;
     }
 
     public double getReceivedValue() {

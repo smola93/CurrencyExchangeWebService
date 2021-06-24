@@ -15,9 +15,9 @@ import java.util.Map;
 public class Currency {
 
     public final String code;
-    Map<String, Double> rates = new HashMap<String, Double>();
+    public Map<String, Double> rates = new HashMap<>();
 
-    Currency(String code) {
+    public Currency(String code) {
         this.code = code;
     }
 
