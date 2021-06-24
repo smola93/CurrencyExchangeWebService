@@ -19,7 +19,7 @@ public class ExchangeController {
             Currency cur = new Currency(currency);
             return exchangeService.exchangeToPln(cur, value);
         } else
-            throw new IOException ("Currency " + currency + " is not supported by our service. " +
+            throw new IOException("Currency " + currency + " is not supported by our service. " +
                     "We support only British Pounds (gbp), United States Dollars (usd), Polish Zloty (pln) and Euro (eur).");
     }
 

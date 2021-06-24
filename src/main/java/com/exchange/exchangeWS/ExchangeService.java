@@ -1,13 +1,14 @@
 package com.exchange.exchangeWS;
 
 import org.springframework.stereotype.Service;
+
 import java.io.IOException;
 
 @Service
 public class ExchangeService implements Exchange {
 
     @Override
-    public double calculateCommission (double value){
+    public double calculateCommission(double value) {
         value = value - ((value * 2) / 100);
         return value;
     }

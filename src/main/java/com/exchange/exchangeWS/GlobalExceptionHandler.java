@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(value = Exception.class)
+    public ResponseEntity<JsonResponse> handleException(Exception e) {
+        return new ResponseEntity<>(new JsonResponse(e.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
     private class JsonResponse {
         String message;
 
@@ -28,11 +33,6 @@ public class GlobalExceptionHandler {
         public void setMessage(String message) {
             this.message = message;
         }
-    }
-
-    @ExceptionHandler(value = Exception.class)
-    public ResponseEntity<JsonResponse> handleException(Exception e) {
-        return new ResponseEntity<>(new JsonResponse(e.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
 }
