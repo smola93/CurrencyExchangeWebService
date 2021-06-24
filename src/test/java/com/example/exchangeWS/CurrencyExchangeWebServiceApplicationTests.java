@@ -26,7 +26,6 @@ class CurrencyExchangeWebServiceApplicationTests {
 	@Autowired
 	ObjectMapper objectMapper;
 
-
 	@Test
 	void contextLoads() {
 	}
