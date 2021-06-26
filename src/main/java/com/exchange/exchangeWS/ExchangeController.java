@@ -1,9 +1,11 @@
 package com.exchange.exchangews;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 @RestController
 public class ExchangeController {
@@ -15,25 +17,25 @@ public class ExchangeController {
     private DataValidatorService dataValidator;
 
     @RequestMapping(value = "/foreign-to-pln/{currency}/{value}", method = RequestMethod.GET)
-    public JsonResult convertForeignToPln(@PathVariable("currency") String currency, @PathVariable("value") double value) throws IOException {
+    public JsonResult convertForeignToPln(@PathVariable("currency") String currency, @PathVariable("value") BigDecimal value) throws IOException {
         dataValidator.valueValidation(value);
         if (dataValidator.currencyValidation(currency)) {
             Currency currencyInternal = new Currency(currency);
             return exchangeService.exchangeForeignToPln(currencyInternal, value);
         } else
             throw new IOException("Currency " + currency + " is not supported by our service. " +
-                    Messages.SUPPORTED_CURRENCIES_MESSAGE);
+                    "We support only British Pounds (gbp), United States Dollars (usd), Polish Zloty (pln) and Euro (eur).");
     }
 
     @RequestMapping(value = "/pln-to-foreign/{currency}/{value}", method = RequestMethod.GET)
-    public JsonResult convertPlnToForeign(@PathVariable("currency") String currency, @PathVariable("value") double value) throws IOException {
+    public JsonResult convertPlnToForeign(@PathVariable("currency") String currency, @PathVariable("value") BigDecimal value) throws IOException {
         dataValidator.valueValidation(value);
         if (dataValidator.currencyValidation(currency)) {
             Currency currencyInternal = new Currency(currency);
             return exchangeService.exchangePlnToForeign(currencyInternal, value);
         } else
             throw new IOException("Currency " + currency + " is not supported by our service. " +
-                    Messages.SUPPORTED_CURRENCIES_MESSAGE);
+                    "We support only British Pounds (gbp), United States Dollars (usd), Polish Zloty (pln) and Euro (eur).");
     }
 
     @RequestMapping(value = "/foreign-to-foreign", method = RequestMethod.POST)
@@ -50,6 +52,6 @@ public class ExchangeController {
             return exchangeService.exchangeForeignToForeign(inputCurrency, outputCurrency, request.getValue());
         } else
             throw new IOException("One of your currencies is not supported by our service. Are you sure you provided correct ones? " +
-                    Messages.SUPPORTED_CURRENCIES_MESSAGE);
+                    "We support only British Pounds (gbp), United States Dollars (usd), Polish Zloty (pln) and Euro (eur).");
     }
 }

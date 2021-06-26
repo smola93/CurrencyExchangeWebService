@@ -1,11 +1,13 @@
 package com.exchange.exchangews;
 
+
 import java.io.IOException;
+import java.math.BigDecimal;
 
 public class JsonRequest {
     private String exchangeFrom;
     private String exchangeTo;
-    private double value;
+    private BigDecimal value;
 
     public String getExchangeFrom() {
         return exchangeFrom;
@@ -23,13 +25,9 @@ public class JsonRequest {
         this.exchangeTo = exchangeTo;
     }
 
-    public double getValue() {
-        return value;
-    }
+    public BigDecimal getValue() { return value; }
 
-    public void setValue(double value) {
-        this.value = value;
-    }
+    public void setValue(BigDecimal value) { this.value = value; }
 
     public void jsonRequestValidation() throws IOException {
         if (exchangeFrom == null || exchangeTo == null) { //Value is handled in another validation from DataValidator.
