@@ -1,6 +1,6 @@
 package com.exchange.exchangews;
 
-public class Constants {
+public final class Constants {
     //currencies
     public static final String PLN_CODE = "pln";
     public static final String GBP_CODE = "gbp";

@@ -16,7 +16,11 @@ import java.util.Map;
 public class Currency {
 
     private final String code;
-    public Map<String, BigDecimal> rates = new HashMap<>();
+    private final Map<String, BigDecimal> rates = new HashMap<>();
+
+    public Map<String, BigDecimal> getRates() {
+        return rates;
+    }
 
     public Currency(String code) {
         this.code = code;
@@ -26,7 +30,7 @@ public class Currency {
         return code;
     }
 
-    public Map<String, BigDecimal> getRates() throws IOException {
+    public void getExchangeRates() throws IOException {
         String code = this.code;
         String url = Constants.CONVERTER_URL + code + "/";
         String response = getResponseString(url);
@@ -34,7 +38,6 @@ public class Currency {
         JsonNode jsonNode = objectMapper.readTree(response);
         rates.put(Constants.BUY_MAP_KEY, new BigDecimal(jsonNode.get(Constants.RATES_JSON_NODE).get(0).get(Constants.BID_JSON_NODE).asText()));
         rates.put(Constants.SELL_MAP_KEY, new BigDecimal(jsonNode.get(Constants.RATES_JSON_NODE).get(0).get(Constants.ASK_JSON_NODE).asText()));
-        return this.rates;
     }
 
     String getResponseString(String url) throws IOException {
@@ -52,9 +55,7 @@ public class Currency {
             inputStream = connection.getErrorStream();
         }
 
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(
-                        inputStream));
+        BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
 
         while ((currentLine = in.readLine()) != null)
             response.append(currentLine);

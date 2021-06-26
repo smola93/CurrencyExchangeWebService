@@ -18,8 +18,8 @@ public class ExchangeService implements Exchange {
     @Override
     public JsonResult exchangeForeignToPln(Currency currency, BigDecimal value) throws IOException {
         JsonResult json = new JsonResult();
-        currency.getRates();
-        BigDecimal rate = currency.rates.get(Constants.SELL_MAP_KEY);
+        currency.getExchangeRates();
+        BigDecimal rate = currency.getRates().get(Constants.SELL_MAP_KEY);
         BigDecimal result = value.multiply(rate);
         result = calculateCommission(result);
         json.setReceivedValue(value);
@@ -32,8 +32,8 @@ public class ExchangeService implements Exchange {
     @Override
     public JsonResult exchangePlnToForeign(Currency currency, BigDecimal value) throws IOException {
         JsonResult json = new JsonResult();
-        currency.getRates();
-        BigDecimal rate = currency.rates.get(Constants.BUY_MAP_KEY);
+        currency.getExchangeRates();
+        BigDecimal rate = currency.getRates().get(Constants.BUY_MAP_KEY);
         BigDecimal result = value.divide(rate, 2, RoundingMode.HALF_UP);
         result = calculateCommission(result);
         json.setReceivedValue(value);
@@ -46,12 +46,12 @@ public class ExchangeService implements Exchange {
     @Override
     public JsonResult exchangeForeignToForeign(Currency inputCurrency, Currency outputCurrency, BigDecimal value) throws IOException {
         JsonResult json = new JsonResult();
-        inputCurrency.getRates();
-        BigDecimal receivedCurrencyRate = inputCurrency.rates.get(Constants.SELL_MAP_KEY);
+        inputCurrency.getExchangeRates();
+        BigDecimal receivedCurrencyRate = inputCurrency.getRates().get(Constants.SELL_MAP_KEY);
         BigDecimal receivedCurrencyToPln = value.multiply(receivedCurrencyRate);
         receivedCurrencyToPln = calculateCommission(receivedCurrencyToPln);
-        outputCurrency.getRates();
-        BigDecimal exchangeCurrencyRate = outputCurrency.rates.get(Constants.BUY_MAP_KEY);
+        outputCurrency.getExchangeRates();
+        BigDecimal exchangeCurrencyRate = outputCurrency.getRates().get(Constants.BUY_MAP_KEY);
         BigDecimal result = receivedCurrencyToPln.divide(exchangeCurrencyRate, 2, RoundingMode.HALF_UP);
         result = calculateCommission(result);
         json.setReceivedValue(value);
