@@ -34,8 +34,8 @@ class CurrencyExchangeWebServiceApplicationTests {
         //Given
         BigDecimal testedValue = BigDecimal.valueOf(100);
         Currency currency = new Currency(Constants.EUR_CODE);
-        currency.getRates();
-        BigDecimal actualRate = currency.rates.get(Constants.SELL_MAP_KEY);
+        currency.getExchangeRates();
+        BigDecimal actualRate = currency.getRates().get(Constants.SELL_MAP_KEY);
         BigDecimal expectedValue = (testedValue.multiply(actualRate)).multiply(BigDecimal.valueOf(0.98));
         //When
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/foreign-to-pln/eur/" + testedValue))
@@ -50,8 +50,8 @@ class CurrencyExchangeWebServiceApplicationTests {
         //Given
         BigDecimal testedValue = BigDecimal.valueOf(100);
         Currency currency = new Currency(Constants.EUR_CODE);
-        currency.getRates();
-        BigDecimal actualRate = currency.rates.get(Constants.BUY_MAP_KEY);
+        currency.getExchangeRates();
+        BigDecimal actualRate = currency.getRates().get(Constants.BUY_MAP_KEY);
         BigDecimal expectedValue = (testedValue.divide(actualRate, 2, RoundingMode.HALF_UP)).multiply(BigDecimal.valueOf(0.98));
         //When
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/pln-to-foreign/eur/" + testedValue))
@@ -67,11 +67,11 @@ class CurrencyExchangeWebServiceApplicationTests {
         BigDecimal testedValue = BigDecimal.valueOf(200);
         Currency received = new Currency(Constants.EUR_CODE);
         Currency exchanged = new Currency(Constants.USD_CODE);
-        received.getRates();
-        BigDecimal receivedRate = received.rates.get(Constants.SELL_MAP_KEY);
+        received.getExchangeRates();
+        BigDecimal receivedRate = received.getRates().get(Constants.SELL_MAP_KEY);
         BigDecimal receivedToPln = (testedValue.multiply(receivedRate)).multiply(BigDecimal.valueOf(0.98));
-        exchanged.getRates();
-        BigDecimal exchangedRate = exchanged.rates.get(Constants.BUY_MAP_KEY);
+        exchanged.getExchangeRates();
+        BigDecimal exchangedRate = exchanged.getRates().get(Constants.BUY_MAP_KEY);
         BigDecimal expectedValue = (receivedToPln.divide(exchangedRate, 2, RoundingMode.HALF_UP)).multiply(BigDecimal.valueOf(0.98));
         //When
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/foreign-to-foreign")
