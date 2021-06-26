@@ -1,11 +1,11 @@
-package com.exchange.exchangeWS;
+package com.exchange.exchangews;
 
 import java.io.IOException;
 
 public class JsonRequest {
-    public String exchangeFrom;
-    public String exchangeTo;
-    public double value;
+    private String exchangeFrom;
+    private String exchangeTo;
+    private double value;
 
     public String getExchangeFrom() {
         return exchangeFrom;
@@ -32,7 +32,7 @@ public class JsonRequest {
     }
 
     public void jsonRequestValidation() throws IOException {
-        if (exchangeFrom == null || exchangeTo == null) { //Value is handled in another validation from Service class.
+        if (exchangeFrom == null || exchangeTo == null) { //Value is handled in another validation from DataValidator.
             throw new IOException("Invalid request body structure.");
         }
     }

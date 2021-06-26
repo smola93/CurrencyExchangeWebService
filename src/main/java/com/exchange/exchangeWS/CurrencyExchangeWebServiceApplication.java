@@ -1,4 +1,4 @@
-package com.exchange.exchangeWS;
+package com.exchange.exchangews;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

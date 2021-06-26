@@ -1,4 +1,4 @@
-package com.exchange.exchangeWS;
+package com.exchange.exchangews;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,39 +14,53 @@ import java.util.Map;
 
 public class Currency {
 
-    public final String code;
+    private final String code;
     public Map<String, Double> rates = new HashMap<>();
 
     public Currency(String code) {
         this.code = code;
     }
 
+    public String getCode() {
+        return code;
+    }
+
     public Map<String, Double> getRates() throws IOException {
         String code = this.code;
-        String url = "http://api.nbp.pl/api/exchangerates/rates/c/" + code + "/";
+        String url = Constants.CONVERTER_URL + code + "/";
         String response = getResponseString(url);
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(response);
-        rates.put("buy", Double.parseDouble(jsonNode.get("rates").get(0).get("bid").asText()));
-        rates.put("sell", Double.parseDouble(jsonNode.get("rates").get(0).get("ask").asText()));
+        rates.put(Constants.BUY_MAP_KEY, Double.parseDouble(jsonNode.get(Constants.RATES_JSON_NODE).get(0).get(Constants.BID_JSON_NODE).asText()));
+        rates.put(Constants.SELL_MAP_KEY, Double.parseDouble(jsonNode.get(Constants.RATES_JSON_NODE).get(0).get(Constants.ASK_JSON_NODE).asText()));
         return this.rates;
     }
 
     String getResponseString(String url) throws IOException {
-        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-        int responseCode = connection.getResponseCode();
+        String currentLine;
         InputStream inputStream;
-        if (200 <= responseCode && responseCode <= 299) {
+        StringBuilder response = new StringBuilder();
+
+        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+
+        int responseCode = connection.getResponseCode();
+
+        if (HttpURLConnection.HTTP_OK == responseCode) {
             inputStream = connection.getInputStream();
         } else {
             inputStream = connection.getErrorStream();
         }
-        BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
-        StringBuilder response = new StringBuilder();
-        String currentLine;
+
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(
+                        inputStream));
+
         while ((currentLine = in.readLine()) != null)
             response.append(currentLine);
+
         in.close();
+
         return response.toString();
     }
+
 }

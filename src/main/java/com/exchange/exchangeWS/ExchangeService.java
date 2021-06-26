@@ -1,4 +1,4 @@
-package com.exchange.exchangeWS;
+package com.exchange.exchangews;
 
 import org.springframework.stereotype.Service;
 
@@ -14,16 +14,16 @@ public class ExchangeService implements Exchange {
     }
 
     @Override
-    public JsonResult exchangeToPln(Currency currency, double value) throws IOException {
+    public JsonResult exchangeForeignToPln(Currency currency, double value) throws IOException {
         JsonResult json = new JsonResult();
         currency.getRates();
-        double rate = currency.rates.get("sell");
+        double rate = currency.rates.get(Constants.SELL_MAP_KEY);
         double result = value * rate;
         result = calculateCommission(result);
         json.setReceivedValue(value);
         json.setExchangeValue(result);
-        json.setExchangeCurrency("pln");
-        json.setReceivedCurrency(currency.code);
+        json.setExchangeCurrency(Constants.PLN_CODE);
+        json.setReceivedCurrency(currency.getCode());
         return json;
     }
 
@@ -31,44 +31,32 @@ public class ExchangeService implements Exchange {
     public JsonResult exchangePlnToForeign(Currency currency, double value) throws IOException {
         JsonResult json = new JsonResult();
         currency.getRates();
-        double rate = currency.rates.get("buy");
+        double rate = currency.rates.get(Constants.BUY_MAP_KEY);
         double result = value / rate;
         result = calculateCommission(result);
         json.setReceivedValue(value);
         json.setExchangeValue(result);
-        json.setReceivedCurrency("pln");
-        json.setExchangeCurrency(currency.code);
+        json.setReceivedCurrency(Constants.PLN_CODE);
+        json.setExchangeCurrency(currency.getCode());
         return json;
     }
 
     @Override
-    public JsonResult foreignCurrencyExchange(Currency receivedCurrency, Currency exchangeCurrency, double value) throws IOException {
+    public JsonResult exchangeForeignToForeign(Currency inputCurrency, Currency outputCurrency, double value) throws IOException {
         JsonResult json = new JsonResult();
-        receivedCurrency.getRates();
-        double receivedCurrencyRate = receivedCurrency.rates.get("sell");
+        inputCurrency.getRates();
+        double receivedCurrencyRate = inputCurrency.rates.get(Constants.SELL_MAP_KEY);
         double receivedCurrencyToPln = value * receivedCurrencyRate;
         receivedCurrencyToPln = calculateCommission(receivedCurrencyToPln);
-        exchangeCurrency.getRates();
-        double exchangeCurrencyRate = exchangeCurrency.rates.get("buy");
+        outputCurrency.getRates();
+        double exchangeCurrencyRate = outputCurrency.rates.get(Constants.BUY_MAP_KEY);
         double result = receivedCurrencyToPln / exchangeCurrencyRate;
         result = calculateCommission(result);
         json.setReceivedValue(value);
         json.setExchangeValue(result);
-        json.setReceivedCurrency(receivedCurrency.code);
-        json.setExchangeCurrency(exchangeCurrency.code);
+        json.setReceivedCurrency(inputCurrency.getCode());
+        json.setExchangeCurrency(outputCurrency.getCode());
         return json;
-    }
-
-    @Override
-    public boolean currencyValidation(String currency) {
-        return currency.equals("pln") || currency.equals("gbp") || currency.equals("usd") || currency.equals("eur");
-    }
-
-    @Override
-    public void valueValidation(double value) throws IOException {
-        if (value <= 0) {
-            throw new IOException("Wrong exchange value");
-        }
     }
 }
 

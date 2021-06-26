@@ -1,11 +1,11 @@
-package com.exchange.exchangeWS;
+package com.exchange.exchangews;
 
 public class JsonResult {
 
-    String receivedCurrency;
-    String exchangeCurrency;
-    double receivedValue;
-    double exchangeValue;
+    private String receivedCurrency;
+    private String exchangeCurrency;
+    private double receivedValue;
+    private double exchangeValue;
 
     public String getReceivedCurrency() {
         return receivedCurrency;

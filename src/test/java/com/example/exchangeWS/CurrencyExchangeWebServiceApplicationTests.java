@@ -1,9 +1,6 @@
 package com.example.exchangeWS;
 
-import com.exchange.exchangeWS.Currency;
-import com.exchange.exchangeWS.CurrencyExchangeWebServiceApplication;
-import com.exchange.exchangeWS.JsonRequest;
-import com.exchange.exchangeWS.JsonResult;
+import com.exchange.exchangews.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -33,9 +30,9 @@ class CurrencyExchangeWebServiceApplicationTests {
     void exchangeToPlnTest() throws Exception {
         //Arrange
         double testedValue = 100;
-        Currency currency = new Currency("eur");
+        Currency currency = new Currency(Constants.EUR_CODE);
         currency.getRates();
-        double actualRate = currency.rates.get("sell");
+        double actualRate = currency.rates.get(Constants.SELL_MAP_KEY);
         double expectedValue = (testedValue * actualRate) * 0.98;
         //Act
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/foreign-to-pln/eur/" + testedValue))
@@ -49,9 +46,9 @@ class CurrencyExchangeWebServiceApplicationTests {
     void exchangePlnToForeignTest() throws Exception {
         //Arrange
         double testedValue = 100;
-        Currency currency = new Currency("eur");
+        Currency currency = new Currency(Constants.EUR_CODE);
         currency.getRates();
-        double actualRate = currency.rates.get("buy");
+        double actualRate = currency.rates.get(Constants.BUY_MAP_KEY);
         double expectedValue = (testedValue / actualRate) * 0.98;
         //Act
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/pln-to-foreign/eur/" + testedValue))
@@ -65,13 +62,13 @@ class CurrencyExchangeWebServiceApplicationTests {
     void foreignCurrencyExchangeTest() throws Exception {
         //Arrange
         double testedValue = 200;
-        Currency received = new Currency("eur");
-        Currency exchanged = new Currency("usd");
+        Currency received = new Currency(Constants.EUR_CODE);
+        Currency exchanged = new Currency(Constants.USD_CODE);
         received.getRates();
-        double receivedRate = received.rates.get("sell");
+        double receivedRate = received.rates.get(Constants.SELL_MAP_KEY);
         double receivedToPln = (testedValue * receivedRate) * 0.98;
         exchanged.getRates();
-        double exchangedRate = exchanged.rates.get("buy");
+        double exchangedRate = exchanged.rates.get(Constants.BUY_MAP_KEY);
         double expectedValue = (receivedToPln / exchangedRate) * 0.98;
         //Act
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/foreign-to-foreign")
@@ -86,8 +83,8 @@ class CurrencyExchangeWebServiceApplicationTests {
     //Setting request body for foreignCurrencyExchangeTest()
     private String setRequestBody(double value) throws Exception {
         JsonRequest request = new JsonRequest();
-        request.setExchangeFrom("eur");
-        request.setExchangeTo("usd");
+        request.setExchangeFrom(Constants.EUR_CODE);
+        request.setExchangeTo(Constants.USD_CODE);
         request.setValue(value);
         return new ObjectMapper().writeValueAsString(request);
     }
