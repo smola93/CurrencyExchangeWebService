@@ -26,21 +26,19 @@ class CurrencyExchangeWebServiceApplicationTests {
     ObjectMapper objectMapper;
 
     @Test
-    void contextLoads() {
-    }
-
-    @Test
-    void exchangeToPlnTest() throws Exception {
+    void exchangeForeignToPlnTest() throws Exception {
         //Given
         BigDecimal testedValue = BigDecimal.valueOf(100);
         Currency currency = new Currency(Constants.EUR_CODE);
         currency.getExchangeRates();
         BigDecimal actualRate = currency.getRates().get(Constants.SELL_MAP_KEY);
         BigDecimal expectedValue = (testedValue.multiply(actualRate)).multiply(BigDecimal.valueOf(0.98));
+
         //When
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/foreign-to-pln/eur/" + testedValue))
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful()).andReturn();
         ExchangeResultDto result = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), ExchangeResultDto.class);
+
         //Then
         Assertions.assertEquals(expectedValue, result.getExchangeValue());
     }
@@ -53,16 +51,18 @@ class CurrencyExchangeWebServiceApplicationTests {
         currency.getExchangeRates();
         BigDecimal actualRate = currency.getRates().get(Constants.BUY_MAP_KEY);
         BigDecimal expectedValue = (testedValue.divide(actualRate, 2, RoundingMode.HALF_UP)).multiply(BigDecimal.valueOf(0.98));
+
         //When
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/pln-to-foreign/eur/" + testedValue))
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful()).andReturn();
         ExchangeResultDto result = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), ExchangeResultDto.class);
+
         //Then
         Assertions.assertEquals(expectedValue, result.getExchangeValue());
     }
 
     @Test
-    void foreignCurrencyExchangeTest() throws Exception {
+    void exchangeForeignToForeignTest() throws Exception {
         //Given
         BigDecimal testedValue = BigDecimal.valueOf(200);
         Currency received = new Currency(Constants.EUR_CODE);
@@ -73,17 +73,19 @@ class CurrencyExchangeWebServiceApplicationTests {
         exchanged.getExchangeRates();
         BigDecimal exchangedRate = exchanged.getRates().get(Constants.BUY_MAP_KEY);
         BigDecimal expectedValue = (receivedToPln.divide(exchangedRate, 2, RoundingMode.HALF_UP)).multiply(BigDecimal.valueOf(0.98));
+
         //When
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/foreign-to-foreign")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(setRequestBody(testedValue)))
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful()).andReturn();
         ExchangeResultDto result = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), ExchangeResultDto.class);
+
         //Then
         Assertions.assertEquals(expectedValue, result.getExchangeValue());
     }
 
-    //Setting request body for foreignCurrencyExchangeTest()
+    //Setting request body for exchangeForeignToForeignTest()
     private String setRequestBody(BigDecimal value) throws Exception {
         ExchangeRequestDto request = new ExchangeRequestDto();
         request.setExchangeFrom(Constants.EUR_CODE);
