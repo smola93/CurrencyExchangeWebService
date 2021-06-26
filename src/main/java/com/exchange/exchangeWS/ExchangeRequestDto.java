@@ -4,7 +4,7 @@ package com.exchange.exchangews;
 import java.io.IOException;
 import java.math.BigDecimal;
 
-public class JsonRequest {
+public class ExchangeRequestDto {
     private String exchangeFrom;
     private String exchangeTo;
     private BigDecimal value;

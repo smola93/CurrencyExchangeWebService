@@ -40,9 +40,9 @@ class CurrencyExchangeWebServiceApplicationTests {
         //When
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/foreign-to-pln/eur/" + testedValue))
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful()).andReturn();
-        JsonResult jsonResult = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), JsonResult.class);
+        ExchangeResultDto result = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), ExchangeResultDto.class);
         //Then
-        Assertions.assertEquals(expectedValue, jsonResult.getExchangeValue());
+        Assertions.assertEquals(expectedValue, result.getExchangeValue());
     }
 
     @Test
@@ -56,9 +56,9 @@ class CurrencyExchangeWebServiceApplicationTests {
         //When
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/pln-to-foreign/eur/" + testedValue))
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful()).andReturn();
-        JsonResult jsonResult = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), JsonResult.class);
+        ExchangeResultDto result = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), ExchangeResultDto.class);
         //Then
-        Assertions.assertEquals(expectedValue, jsonResult.getExchangeValue());
+        Assertions.assertEquals(expectedValue, result.getExchangeValue());
     }
 
     @Test
@@ -78,14 +78,14 @@ class CurrencyExchangeWebServiceApplicationTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(setRequestBody(testedValue)))
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful()).andReturn();
-        JsonResult jsonResult = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), JsonResult.class);
+        ExchangeResultDto result = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), ExchangeResultDto.class);
         //Then
-        Assertions.assertEquals(expectedValue, jsonResult.getExchangeValue());
+        Assertions.assertEquals(expectedValue, result.getExchangeValue());
     }
 
     //Setting request body for foreignCurrencyExchangeTest()
     private String setRequestBody(BigDecimal value) throws Exception {
-        JsonRequest request = new JsonRequest();
+        ExchangeRequestDto request = new ExchangeRequestDto();
         request.setExchangeFrom(Constants.EUR_CODE);
         request.setExchangeTo(Constants.USD_CODE);
         request.setValue(value);

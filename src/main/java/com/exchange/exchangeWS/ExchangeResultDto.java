@@ -3,7 +3,7 @@ package com.exchange.exchangews;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class JsonResult {
+public class ExchangeResultDto {
 
     private String receivedCurrency;
     private String exchangeCurrency;

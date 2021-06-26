@@ -44,9 +44,7 @@ public class Currency {
         String currentLine;
         InputStream inputStream;
         StringBuilder response = new StringBuilder();
-
         HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-
         int responseCode = connection.getResponseCode();
 
         if (HttpURLConnection.HTTP_OK == responseCode) {
@@ -64,5 +62,4 @@ public class Currency {
 
         return response.toString();
     }
-
 }
