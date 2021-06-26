@@ -1,11 +1,14 @@
 package com.exchange.exchangews;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class JsonResult {
 
     private String receivedCurrency;
     private String exchangeCurrency;
-    private double receivedValue;
-    private double exchangeValue;
+    private BigDecimal receivedValue;
+    private BigDecimal exchangeValue;
 
     public String getReceivedCurrency() {
         return receivedCurrency;
@@ -23,19 +26,19 @@ public class JsonResult {
         this.exchangeCurrency = exchangeCurrency;
     }
 
-    public double getReceivedValue() {
+    public BigDecimal getReceivedValue() {
         return receivedValue;
     }
 
-    public void setReceivedValue(double receivedValue) {
+    public void setReceivedValue(BigDecimal receivedValue) {
         this.receivedValue = receivedValue;
     }
 
-    public double getExchangeValue() {
-        return exchangeValue;
+    public BigDecimal getExchangeValue() {
+        return exchangeValue.setScale(2, RoundingMode.CEILING);
     }
 
-    public void setExchangeValue(double exchangeValue) {
+    public void setExchangeValue(BigDecimal exchangeValue) {
         this.exchangeValue = exchangeValue;
     }
 }

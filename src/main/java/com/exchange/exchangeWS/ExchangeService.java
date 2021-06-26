@@ -3,22 +3,24 @@ package com.exchange.exchangews;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Service
 public class ExchangeService implements Exchange {
 
     @Override
-    public double calculateCommission(double value) {
-        value = value - ((value * 2) / 100);
+    public BigDecimal calculateCommission(BigDecimal value) {
+        value = value.multiply(BigDecimal.valueOf(0.98));
         return value;
     }
 
     @Override
-    public JsonResult exchangeForeignToPln(Currency currency, double value) throws IOException {
+    public JsonResult exchangeForeignToPln(Currency currency, BigDecimal value) throws IOException {
         JsonResult json = new JsonResult();
         currency.getRates();
-        double rate = currency.rates.get(Constants.SELL_MAP_KEY);
-        double result = value * rate;
+        BigDecimal rate = currency.rates.get(Constants.SELL_MAP_KEY);
+        BigDecimal result = value.multiply(rate);
         result = calculateCommission(result);
         json.setReceivedValue(value);
         json.setExchangeValue(result);
@@ -28,11 +30,11 @@ public class ExchangeService implements Exchange {
     }
 
     @Override
-    public JsonResult exchangePlnToForeign(Currency currency, double value) throws IOException {
+    public JsonResult exchangePlnToForeign(Currency currency, BigDecimal value) throws IOException {
         JsonResult json = new JsonResult();
         currency.getRates();
-        double rate = currency.rates.get(Constants.BUY_MAP_KEY);
-        double result = value / rate;
+        BigDecimal rate = currency.rates.get(Constants.BUY_MAP_KEY);
+        BigDecimal result = value.divide(rate, 2, RoundingMode.HALF_UP);
         result = calculateCommission(result);
         json.setReceivedValue(value);
         json.setExchangeValue(result);
@@ -42,15 +44,15 @@ public class ExchangeService implements Exchange {
     }
 
     @Override
-    public JsonResult exchangeForeignToForeign(Currency inputCurrency, Currency outputCurrency, double value) throws IOException {
+    public JsonResult exchangeForeignToForeign(Currency inputCurrency, Currency outputCurrency, BigDecimal value) throws IOException {
         JsonResult json = new JsonResult();
         inputCurrency.getRates();
-        double receivedCurrencyRate = inputCurrency.rates.get(Constants.SELL_MAP_KEY);
-        double receivedCurrencyToPln = value * receivedCurrencyRate;
+        BigDecimal receivedCurrencyRate = inputCurrency.rates.get(Constants.SELL_MAP_KEY);
+        BigDecimal receivedCurrencyToPln = value.multiply(receivedCurrencyRate);
         receivedCurrencyToPln = calculateCommission(receivedCurrencyToPln);
         outputCurrency.getRates();
-        double exchangeCurrencyRate = outputCurrency.rates.get(Constants.BUY_MAP_KEY);
-        double result = receivedCurrencyToPln / exchangeCurrencyRate;
+        BigDecimal exchangeCurrencyRate = outputCurrency.rates.get(Constants.BUY_MAP_KEY);
+        BigDecimal result = receivedCurrencyToPln.divide(exchangeCurrencyRate, 2, RoundingMode.HALF_UP);
         result = calculateCommission(result);
         json.setReceivedValue(value);
         json.setExchangeValue(result);

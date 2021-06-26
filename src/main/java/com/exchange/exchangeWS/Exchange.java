@@ -1,13 +1,14 @@
 package com.exchange.exchangews;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 public interface Exchange {
-    JsonResult exchangeForeignToPln(Currency currency, double value) throws IOException;
+    JsonResult exchangeForeignToPln(Currency currency, BigDecimal value) throws IOException;
 
-    JsonResult exchangePlnToForeign(Currency currency, double value) throws IOException;
+    JsonResult exchangePlnToForeign(Currency currency, BigDecimal value) throws IOException;
 
-    JsonResult exchangeForeignToForeign(Currency inputCurrency, Currency outputCurrency, double value) throws IOException;
+    JsonResult exchangeForeignToForeign(Currency inputCurrency, Currency outputCurrency, BigDecimal value) throws IOException;
 
-    double calculateCommission(double value);
+    BigDecimal calculateCommission(BigDecimal value);
 }
