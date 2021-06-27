@@ -1,5 +1,6 @@
-package com.exchange.exchangews;
+package com.exchange.exchangews.model;
 
+import com.exchange.exchangews.util.Constants;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

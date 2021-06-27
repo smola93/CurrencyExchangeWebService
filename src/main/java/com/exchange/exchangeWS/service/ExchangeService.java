@@ -1,5 +1,8 @@
-package com.exchange.exchangews;
+package com.exchange.exchangews.service;
 
+import com.exchange.exchangews.util.Constants;
+import com.exchange.exchangews.model.Currency;
+import com.exchange.exchangews.model.ExchangeResultDto;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;

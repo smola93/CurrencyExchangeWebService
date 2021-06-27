@@ -1,4 +1,4 @@
-package com.exchange.exchangews;
+package com.exchange.exchangews.model;
 
 
 import java.io.IOException;

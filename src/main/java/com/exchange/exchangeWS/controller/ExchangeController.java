@@ -1,5 +1,11 @@
-package com.exchange.exchangews;
+package com.exchange.exchangews.controller;
 
+import com.exchange.exchangews.util.Constants;
+import com.exchange.exchangews.service.DataValidatorService;
+import com.exchange.exchangews.service.ExchangeService;
+import com.exchange.exchangews.model.Currency;
+import com.exchange.exchangews.model.ExchangeRequestDto;
+import com.exchange.exchangews.model.ExchangeResultDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +25,7 @@ public class ExchangeController {
     public ExchangeResultDto convertForeignToPln(@PathVariable("currency") String currency, @PathVariable("value") BigDecimal value) throws IOException {
         dataValidator.validateValue(value);
         dataValidator.validateCurrency(currency);
+        dataValidator.validatePln(currency);
         Currency currencyInternal = new Currency(currency);
         return exchangeService.exchangeForeignToPln(currencyInternal, value);
     }
@@ -27,6 +34,7 @@ public class ExchangeController {
     public ExchangeResultDto convertPlnToForeign(@PathVariable("currency") String currency, @PathVariable("value") BigDecimal value) throws IOException {
         dataValidator.validateValue(value);
         dataValidator.validateCurrency(currency);
+        dataValidator.validatePln(currency);
         Currency currencyInternal = new Currency(currency);
         return exchangeService.exchangePlnToForeign(currencyInternal, value);
     }
