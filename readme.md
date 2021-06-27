@@ -28,4 +28,8 @@ So the default address on your local machine will be:
 
 ```localhost:8080/swagger-ui/```
 
+Or by simply typing:
+
+```localhost:8080/```
+
 Author: Mateusz Samulnik.

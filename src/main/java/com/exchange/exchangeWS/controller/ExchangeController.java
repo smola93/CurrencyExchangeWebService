@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -22,6 +23,11 @@ public class ExchangeController {
 
     @Autowired
     private DataValidatorService dataValidator;
+
+    @GetMapping("/")
+    public ModelAndView redirectToDocumentationPage() {
+        return new ModelAndView("index");
+    }
 
     @ApiOperation(value = Constants.FOREIGN_TO_PLN_INFO, notes = Constants.VALIDATION_CODES)
     @GetMapping(value = "/foreign-to-pln/{currency}/{value}")
