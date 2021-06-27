@@ -24,6 +24,7 @@ public class ExchangeController {
     @Autowired
     private DataValidatorService dataValidator;
 
+    @ApiOperation(value = "Redirecting...", hidden = true)
     @GetMapping("/")
     public ModelAndView redirectToDocumentationPage() {
         return new ModelAndView("index");
