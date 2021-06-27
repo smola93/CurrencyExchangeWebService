@@ -49,7 +49,7 @@ public class ExchangeController {
         return exchangeService.exchangePlnToForeign(currencyInternal, value);
     }
 
-    @ApiOperation(value = "Exchanging foreign currency to another foreign currency", notes = "Remember we support only EUR, GBP, USD and PLN")
+    @ApiOperation(value = Constants.FOREIGN_TO_FOREIGN_INFO, notes = Constants.VALIDATION_CODES)
     @PostMapping(value = "/foreign-to-foreign")
     public ExchangeResultDto convertForeignToForeign(@RequestBody ExchangeRequestDto request) throws IOException {
         dataValidator.validateValue(request.getValue());

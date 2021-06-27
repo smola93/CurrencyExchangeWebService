@@ -22,6 +22,7 @@ public final class Constants {
     //Messages
     public static final String FOREIGN_TO_PLN_INFO = "Allows exchange foreign currency to Polish Zloty";
     public static final String PLN_TO_FOREIGN_INFO = "Allows exchange Polish Zloty to foreign currency";
+    public static final String FOREIGN_TO_FOREIGN_INFO = "Exchanging foreign currency to another foreign currency";
     public static final String VALIDATION_CODES = "Remember we support only EUR, GBP, USD and PLN.";
     public static final String PARAM_CURRENCY_INFO = "code of currency, for example \\\"usd\\\"";
     public static final String PARAM_VALUE_INFO = "value to exchange";
