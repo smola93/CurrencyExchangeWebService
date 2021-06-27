@@ -26,6 +26,6 @@ For details please see documentation, which is available on endpoint:
 
 So the default address on your local machine will be:
 
-http://localhost:8080/swagger-ui/
+```localhost:8080/swagger-ui/```
 
 Author: Mateusz Samulnik.
