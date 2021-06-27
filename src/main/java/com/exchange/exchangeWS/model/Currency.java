@@ -19,12 +19,12 @@ public class Currency {
     private final String code;
     private final Map<String, BigDecimal> rates = new HashMap<>();
 
-    public Map<String, BigDecimal> getRates() {
-        return rates;
-    }
-
     public Currency(String code) {
         this.code = code;
+    }
+
+    public Map<String, BigDecimal> getRates() {
+        return rates;
     }
 
     public String getCode() {

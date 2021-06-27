@@ -1,6 +1,6 @@
 package com.example.exchangeWS;
 
-import com.exchange.exchangews.*;
+import com.exchange.exchangews.CurrencyExchangeWebServiceApplication;
 import com.exchange.exchangews.model.Currency;
 import com.exchange.exchangews.model.ExchangeRequestDto;
 import com.exchange.exchangews.model.ExchangeResultDto;

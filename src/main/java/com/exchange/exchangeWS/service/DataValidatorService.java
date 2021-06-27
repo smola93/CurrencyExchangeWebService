@@ -21,9 +21,9 @@ public class DataValidatorService implements DataValidator {
         }
     }
 
-       public void validatePln(String currency) throws IOException {
-            if (Constants.PLN_CODE.equals(currency)) {
-                throw new IOException("You cannot exchange pln to pln.");
-            }
+    public void validatePln(String currency) throws IOException {
+        if (Constants.PLN_CODE.equals(currency)) {
+            throw new IOException("You cannot exchange pln to pln.");
         }
     }
+}

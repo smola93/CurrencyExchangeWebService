@@ -29,7 +29,7 @@ public class SwaggerConfig {
         return new ApiInfo(
                 "CurrencyExchangeWebService",
                 "API which allows you to convert currencies into Polish Zloty's, Euros, Dollars and British Pounds. "
-                + "\n\nREMEMBER: Service charges a two percent commission for EACH transaction.",
+                        + "\n\nREMEMBER: Service charges a two percent commission for EACH transaction.",
                 "1.0",
                 null,
                 new Contact("Mateusz Samulnik", "http://linkedin.com/in/mateusz-samulnik/", "mateuszsamulnik@gmail.com"),

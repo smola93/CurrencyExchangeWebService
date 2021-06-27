@@ -25,9 +25,13 @@ public class ExchangeRequestDto {
         this.exchangeTo = exchangeTo;
     }
 
-    public BigDecimal getValue() { return value; }
+    public BigDecimal getValue() {
+        return value;
+    }
 
-    public void setValue(BigDecimal value) { this.value = value; }
+    public void setValue(BigDecimal value) {
+        this.value = value;
+    }
 
     public void jsonRequestValidation() throws IOException {
         if (exchangeFrom == null || exchangeTo == null) { //Value is handled in another validation from DataValidator.
