@@ -23,7 +23,7 @@ public class ExchangeController {
     @Autowired
     private DataValidatorService dataValidator;
 
-    @ApiOperation(value = Constants.VALIDATION_INFO, notes = Constants.VALIDATION_CODES)
+    @ApiOperation(value = Constants.FOREIGN_TO_PLN_INFO, notes = Constants.VALIDATION_CODES)
     @GetMapping(value = "/foreign-to-pln/{currency}/{value}")
     public ExchangeResultDto convertForeignToPln(@ApiParam(value = Constants.PARAM_CURRENCY_INFO)
                                                  @PathVariable("currency") String currency,
@@ -36,7 +36,7 @@ public class ExchangeController {
         return exchangeService.exchangeForeignToPln(currencyInternal, value);
     }
 
-    @ApiOperation(value = Constants.VALIDATION_INFO, notes = Constants.VALIDATION_CODES)
+    @ApiOperation(value = Constants.PLN_TO_FOREIGN_INFO, notes = Constants.VALIDATION_CODES)
     @GetMapping(value = "/pln-to-foreign/{currency}/{value}")
     public ExchangeResultDto convertPlnToForeign(@ApiParam(value = Constants.PARAM_CURRENCY_INFO)
                                                  @PathVariable("currency") String currency,
