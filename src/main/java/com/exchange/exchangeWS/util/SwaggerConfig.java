@@ -21,7 +21,7 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
-                .apis(RequestHandlerSelectors.basePackage("com.exchange.exchangews"))
+                .apis(RequestHandlerSelectors.basePackage("com.exchange.exchangeWS"))
                 .build().apiInfo(apiInfo());
     }
 
