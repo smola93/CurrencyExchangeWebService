@@ -2,7 +2,7 @@
 -
 
 
-The website allows you to convert the following currencies:
+Service allows you to convert the following currencies:
 
 1. Euro (code: "eur")
 
