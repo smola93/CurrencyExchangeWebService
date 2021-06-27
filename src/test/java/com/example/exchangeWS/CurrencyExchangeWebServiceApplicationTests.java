@@ -36,7 +36,8 @@ class CurrencyExchangeWebServiceApplicationTests {
         Currency currency = new Currency(Constants.EUR_CODE);
         currency.getExchangeRates();
         BigDecimal actualRate = currency.getRates().get(Constants.SELL_MAP_KEY);
-        BigDecimal expectedValue = (testedValue.multiply(actualRate)).multiply(BigDecimal.valueOf(0.98));
+        BigDecimal expectedValue = (testedValue.multiply(actualRate)).multiply
+                (BigDecimal.valueOf(0.98)).setScale(2, RoundingMode.CEILING);
 
         //When
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/foreign-to-pln/eur/" + testedValue))
@@ -54,7 +55,8 @@ class CurrencyExchangeWebServiceApplicationTests {
         Currency currency = new Currency(Constants.EUR_CODE);
         currency.getExchangeRates();
         BigDecimal actualRate = currency.getRates().get(Constants.BUY_MAP_KEY);
-        BigDecimal expectedValue = (testedValue.divide(actualRate, 2, RoundingMode.HALF_UP)).multiply(BigDecimal.valueOf(0.98));
+        BigDecimal expectedValue = (testedValue.divide(actualRate, 2, RoundingMode.HALF_UP)).multiply
+                (BigDecimal.valueOf(0.98)).setScale(2, RoundingMode.CEILING);
 
         //When
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/pln-to-foreign/eur/" + testedValue))
@@ -76,7 +78,8 @@ class CurrencyExchangeWebServiceApplicationTests {
         BigDecimal receivedToPln = (testedValue.multiply(receivedRate)).multiply(BigDecimal.valueOf(0.98));
         exchanged.getExchangeRates();
         BigDecimal exchangedRate = exchanged.getRates().get(Constants.BUY_MAP_KEY);
-        BigDecimal expectedValue = (receivedToPln.divide(exchangedRate, 2, RoundingMode.HALF_UP)).multiply(BigDecimal.valueOf(0.98));
+        BigDecimal expectedValue = (receivedToPln.divide(exchangedRate, 2, RoundingMode.HALF_UP)).multiply
+                (BigDecimal.valueOf(0.98)).setScale(2, RoundingMode.CEILING);
 
         //When
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/foreign-to-foreign")
