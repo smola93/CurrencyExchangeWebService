@@ -1,4 +1,4 @@
-package com.exchange.exchangews.util;
+package com.exchange.exchangeWS.util;
 
 public final class Constants {
     //currencies

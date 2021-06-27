@@ -1,4 +1,4 @@
-package com.exchange.exchangews.service;
+package com.exchange.exchangeWS.service;
 
 import org.springframework.stereotype.Service;
 

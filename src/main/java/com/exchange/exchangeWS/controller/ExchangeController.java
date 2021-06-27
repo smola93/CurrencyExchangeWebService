@@ -1,11 +1,11 @@
-package com.exchange.exchangews.controller;
+package com.exchange.exchangeWS.controller;
 
-import com.exchange.exchangews.model.Currency;
-import com.exchange.exchangews.model.ExchangeRequestDto;
-import com.exchange.exchangews.model.ExchangeResultDto;
-import com.exchange.exchangews.service.DataValidatorService;
-import com.exchange.exchangews.service.ExchangeService;
-import com.exchange.exchangews.util.Constants;
+import com.exchange.exchangeWS.model.Currency;
+import com.exchange.exchangeWS.model.ExchangeRequestDto;
+import com.exchange.exchangeWS.model.ExchangeResultDto;
+import com.exchange.exchangeWS.service.DataValidatorService;
+import com.exchange.exchangeWS.service.ExchangeService;
+import com.exchange.exchangeWS.util.Constants;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;

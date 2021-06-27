@@ -1,6 +1,6 @@
-package com.exchange.exchangews.service;
+package com.exchange.exchangeWS.service;
 
-import com.exchange.exchangews.util.Constants;
+import com.exchange.exchangeWS.util.Constants;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;

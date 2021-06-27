@@ -1,4 +1,4 @@
-package com.exchange.exchangews.controller;
+package com.exchange.exchangeWS.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

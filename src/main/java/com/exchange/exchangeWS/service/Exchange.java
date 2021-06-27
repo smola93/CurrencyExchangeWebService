@@ -1,7 +1,7 @@
-package com.exchange.exchangews.service;
+package com.exchange.exchangeWS.service;
 
-import com.exchange.exchangews.model.Currency;
-import com.exchange.exchangews.model.ExchangeResultDto;
+import com.exchange.exchangeWS.model.Currency;
+import com.exchange.exchangeWS.model.ExchangeResultDto;
 
 import java.io.IOException;
 import java.math.BigDecimal;

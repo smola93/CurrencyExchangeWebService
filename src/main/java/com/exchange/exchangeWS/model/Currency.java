@@ -1,6 +1,6 @@
-package com.exchange.exchangews.model;
+package com.exchange.exchangeWS.model;
 
-import com.exchange.exchangews.util.Constants;
+import com.exchange.exchangeWS.util.Constants;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -32,8 +32,8 @@ public class Currency {
     }
 
     public void getExchangeRates() throws IOException {
-        String code = this.code;
-        String url = Constants.CONVERTER_URL + code + "/";
+        String currencyCode = this.code;
+        String url = Constants.CONVERTER_URL + currencyCode + "/";
         String response = getResponseString(url);
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(response);

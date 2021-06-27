@@ -1,10 +1,10 @@
 package com.example.exchangeWS;
 
-import com.exchange.exchangews.CurrencyExchangeWebServiceApplication;
-import com.exchange.exchangews.model.Currency;
-import com.exchange.exchangews.model.ExchangeRequestDto;
-import com.exchange.exchangews.model.ExchangeResultDto;
-import com.exchange.exchangews.util.Constants;
+import com.exchange.exchangeWS.CurrencyExchangeWebServiceApplication;
+import com.exchange.exchangeWS.model.Currency;
+import com.exchange.exchangeWS.model.ExchangeRequestDto;
+import com.exchange.exchangeWS.model.ExchangeResultDto;
+import com.exchange.exchangeWS.util.Constants;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
