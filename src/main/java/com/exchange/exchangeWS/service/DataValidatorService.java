@@ -22,7 +22,7 @@ public class DataValidatorService implements DataValidator {
     }
 
     public void validatePln(String currency) throws IOException {
-        if (Constants.PLN_CODE.equals(currency)) {
+        if (Constants.PLN_CODE.equalsIgnoreCase(currency)) {
             throw new IOException("You cannot exchange pln to pln.");
         }
     }
