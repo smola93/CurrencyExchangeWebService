@@ -62,7 +62,7 @@ public class ExchangeController {
         dataValidator.validateValue(request.getValue());
         request.jsonRequestValidation();
 
-        if (Constants.PLN_CODE.equals(request.getExchangeFrom()) || Constants.PLN_CODE.equals(request.getExchangeTo())) {
+        if (Constants.PLN_CODE.equalsIgnoreCase(request.getExchangeFrom()) || Constants.PLN_CODE.equalsIgnoreCase(request.getExchangeTo())) {
             throw new IOException("For Polish Zloty exchange please use another endpoints. See documentation for more details.");
         }
 
